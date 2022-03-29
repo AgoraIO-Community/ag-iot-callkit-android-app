@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "73974497007",
+    "project_id": "agoracalldemo",
+    "storage_bucket": "agoracalldemo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73974497007:android:e12388487f55fd7f9ee51a",
+        "android_client_info": {
+          "package_name": "com.agora.agoracalldemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "73974497007-s3msndg3bh7nmef0os2g25t6tkd8gvqh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.agora.agoracalldemo",
+            "certificate_hash": "a63ce47498e8c21612b8468fbf0198d7b52d7983"
+          }
+        },
+        {
+          "client_id": "73974497007-dvhh7i2l290r0apmgl92tde3lpgmq5oc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA41vvG9ZHVvlAG8PbfmfJTB9aXAsQiVys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "73974497007-dvhh7i2l290r0apmgl92tde3lpgmq5oc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
