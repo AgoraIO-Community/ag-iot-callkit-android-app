@@ -3,7 +3,7 @@
     <!-- 环信工程的APPID -->
     <string name="EASEMOB_APPKEY">1104210802085866#agoracalldemo</string>
     <!-- 声网工程的APPID -->
-    <string name="AGORA_APPID">xxxxxxxxxxxxxxxxxxxxxxx</string>
+    <string name="AGORA_APPID">d0177a34373b482a9c4eb4dedcfa586a</string>
     <!-- 谷歌FCM项目senderid，控制FCM是否开启的变量在bools.xml中配置 -->
     <string name="FCM_SENDERID">73974497007</string>
     <!-- 华为手机离线推送APPKID，注意‘appid=’不要删除 -->
