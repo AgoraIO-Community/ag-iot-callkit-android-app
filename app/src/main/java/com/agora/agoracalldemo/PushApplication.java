@@ -151,36 +151,17 @@ public class PushApplication extends Application implements ICallKitCallback {
         }
 
         //初始化呼叫功能
-         AgoraCallKit.CallKitInitParam initParam = new AgoraCallKit.CallKitInitParam();
-         initParam.mContext = this;
+        AgoraCallKit.CallKitInitParam initParam = new AgoraCallKit.CallKitInitParam();
+        initParam.mContext = this;
         initParam.mRtcAppId = mMetaData.getString("AGORA_APPID", "");
         initParam.mMetaData = mMetaData;
-         //String storageRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-         //initParam.mLogFilePath = storageRootPath + "/callkit.log";
+        //String storageRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        //initParam.mLogFilePath = storageRootPath + "/callkit.log";
 
-        if (UidInfoBean.TYPE_MAP_DEVICE == mRoleType) {
-            initParam.mPublishVideo = true;
-            initParam.mPublishAudio = true;
-            initParam.mSubscribeAudio = true;
-            initParam.mSubscribeVideo = false;
-        } else {
-//            if (mDblTalk) {
-//                initParam.mPublishVideo = true;
-//                initParam.mPublishAudio = true;
-//            } else {
-//                initParam.mPublishVideo = false;
-//                initParam.mPublishAudio = false;
-//            }
-//            initParam.mSubscribeAudio = true;
-//            initParam.mSubscribeVideo = true;
-
-          initParam.mPublishVideo = false;
-          initParam.mPublishAudio = false;
-          initParam.mSubscribeAudio = false;
-          initParam.mSubscribeVideo = true;
-
-        }
-
+        initParam.mPublishVideo = false;
+        initParam.mPublishAudio = false;
+        initParam.mSubscribeAudio = false;
+        initParam.mSubscribeVideo = true;
         AgoraCallKit.getInstance().initialize(initParam);
 
         //初始化离线/后台运行通知

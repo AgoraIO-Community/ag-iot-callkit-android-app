@@ -314,13 +314,17 @@ public class TalkingEngine implements AGEventHandler, IVideoFrameObserver {
 
     public synchronized boolean startTalking()
     {
-        ALog.getInstance().d(TAG, "<startTalking>");
+        int ret = mRtcEngine.muteLocalVideoStream(true); // App端永远不推视频流
+        if (ret != Constants.ERR_OK) {
+            ALog.getInstance().e(TAG, "<startTalking> muteLocalVideoStream() error, ret=" + ret);
+        }
 
-        int ret = mRtcEngine.muteLocalAudioStream(false);
+        ret = mRtcEngine.muteLocalAudioStream(false);   // App端开始推音频流
         if (ret != Constants.ERR_OK) {
             ALog.getInstance().e(TAG, "<startTalking> muteLocalAudioStream() error, ret=" + ret);
-            return false;
         }
+
+        ALog.getInstance().d(TAG, "<startTalking>");
         return true;
     }
 
