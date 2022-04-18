@@ -176,8 +176,8 @@ public class TalkingEngine implements AGEventHandler, IVideoFrameObserver {
         // 设置广播模式
         mRtcEngine.setClientRole(mRtcEngCfg.mClientRole);
 
-        // 设置私参：音频默认G722 编码
-        String param = "{\"rtc.audio.custom_payload_type\":9}";
+        // 设置私参：音频默认 PCMU 编码
+        String param = "{\"rtc.audio.custom_payload_type\":0}";
         int ret = mRtcEngine.setParameters(param);
 
         mRtcEngine.registerVideoFrameObserver(this);

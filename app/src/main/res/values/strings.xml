@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VideoDoorbell</string>
+    <string name="app_name">Video Doorbell</string>
     <!-- 环信工程的APPID -->
     <string name="EASEMOB_APPKEY">1104210802085866#agoracalldemo</string>
     <!-- 声网工程的APPID -->
