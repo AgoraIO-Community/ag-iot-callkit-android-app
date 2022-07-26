@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- 控制是否开启谷歌FCM离线推送，该值是bool型，通常在海外才能使用 -->
-    <bool name="FCM_ENBALE">false</bool>
-</resources>

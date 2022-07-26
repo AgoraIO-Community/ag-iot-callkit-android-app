@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- VIVO手机离线推送APPID，该值是int型 -->
-    <integer name="VIVO_PUSH_APPID">104510674</integer>
-    <!-- 离线/后台运行消息通知消息ID -->
-    <integer name="EASE_NOTIFIER_MSG_ID">0506</integer>
-</resources>
