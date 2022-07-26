@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_comm"
+        android:icon="@mipmap/ic_homepage"
+        android:title="常用" />
+
+
+    <item
+        android:id="@+id/menu_message"
+        android:icon="@mipmap/ic_personal"
+        android:title="消息" />
+
+    <item
+        android:id="@+id/menu_storage"
+        android:icon="@mipmap/ic_personal"
+        android:title="消息" />
+
+    <item
+        android:id="@+id/menu_func"
+        android:icon="@mipmap/ic_personal"
+        android:title="功能" />
+</menu>

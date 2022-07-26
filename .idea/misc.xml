@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/activity_call_living.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/activity_homepage.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/activity_login.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/activity_setting.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/ads_bar.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/fragment_call_dial.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/fragment_device_list.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/fragment_mine.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/loading_alert.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/rv_msg.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/rv_video.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/title_bar.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/layout/warning_types.xml" value="0.15715579710144928" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/menu/dev_living_menu.xml" value="0.17916666666666667" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/menu/device_menu.xml" value="0.17916666666666667" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/menu/main.xml" value="0.17916666666666667" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/menu/menu.xml" value="0.17916666666666667" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/menu/menu_audioeffect.xml" value="0.17916666666666667" />
+        <entry key="..\:/PrjMgr/aPaaS/code/iot-callkit-android/code/callkitdemo/src/main/res/menu/nightview_menu.xml" value="0.17916666666666667" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8 (3)" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

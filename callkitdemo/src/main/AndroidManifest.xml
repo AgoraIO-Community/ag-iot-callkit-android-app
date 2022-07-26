@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="io.agora.iotcallkitdemo">
+
+    <!-- 允许应用程序改变任务的z顺序，来电时将APP从后台拉到前台显示 -->
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+
+<!--    &lt;!&ndash; ==================== 离线推送权限 BEGIN ==================== &ndash;&gt;-->
+<!--        &lt;!&ndash; Mi推送权限配置 start &ndash;&gt;-->
+<!--        <permission-->
+<!--            android:name="${applicationId}.permission.MIPUSH_RECEIVE"-->
+<!--            android:protectionLevel="signature" />-->
+<!--        <uses-permission android:name="${applicationId}.permission.MIPUSH_RECEIVE" />-->
+<!--        <uses-permission android:name="android.permission.GET_TASKS"/>-->
+<!--        &lt;!&ndash; Mi推送权限配置 end &ndash;&gt;-->
+
+<!--        &lt;!&ndash; HUAWEI 推送权限配置 start &ndash;&gt;-->
+<!--        <uses-permission android:name="android.permission.WAKE_LOCK" />-->
+<!--        &lt;!&ndash; HUAWEI 推送权限配置 end &ndash;&gt;-->
+
+<!--        &lt;!&ndash; 魅族推送权限配置 start&ndash;&gt;-->
+<!--        <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" />-->
+<!--        <permission-->
+<!--            android:name="${applicationId}.push.permission.MESSAGE"-->
+<!--            android:protectionLevel="signature" />-->
+<!--        <uses-permission android:name="${applicationId}.push.permission.MESSAGE" />-->
+<!--        <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />-->
+<!--        <permission-->
+<!--            android:name="${applicationId}.permission.C2D_MESSAGE"-->
+<!--            android:protectionLevel="signature" />-->
+<!--        <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />-->
+<!--        &lt;!&ndash; 魅族推送权限配置 end&ndash;&gt;-->
+
+<!--        &lt;!&ndash; OPPO推送权限配置 start &ndash;&gt;-->
+<!--        <uses-permission android:name="com.coloros.mcs.permission.RECIEVE_MCS_MESSAGE"/>-->
+<!--        <uses-permission android:name="com.heytap.mcs.permission.RECIEVE_MCS_MESSAGE"/>-->
+<!--        &lt;!&ndash; OPPO推送权限配置 end &ndash;&gt;-->
+<!--    &lt;!&ndash; ==================== 离线推送权限 END ==================== &ndash;&gt;-->
+
+
+
+    <application
+        android:name="io.agora.iotcallkitdemo.PushApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.iotsdk20demo"
+
+        tools:targetApi="m">
+
+        <activity android:name="io.agora.iotcallkitdemo.uiaccount.LoginActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+            <activity android:name="io.agora.iotcallkitdemo.HomePageActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="io.agora.iotcallkitdemo.uicallkit.CallIncomingActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name="io.agora.iotcallkitdemo.uicallkit.CallLivingActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!-- 设置灵隼服务Master Server -->
+        <meta-data
+            android:name="MASTER_SERVER_URL"
+            android:value="@string/MASTER_SERVER_URL" />
+
+        <!-- 设置灵隼服务Slave Server -->
+        <meta-data
+            android:name="SALVE_SERVER_URL"
+            android:value="@string/SALVE_SERVER_URL" />
+
+        <!-- 设置声网应用的ProjectID -->
+        <meta-data
+            android:name="PROJECT_ID"
+            android:value="@string/PROJECT_ID" />
+
+        <!-- 设置声网应用的AppID -->
+        <meta-data
+            android:name="AGORA_APPID"
+            android:value="@string/AGORA_APPID" />
+
+        <!-- 设置测试用的product key，实际使用应当APP集成扫描功能，扫描设备产品码获取 -->
+        <meta-data
+            android:name="PRODUCT_KEY"
+            android:value="@string/PRODUCT_KEY" />
+
+
+<!--        &lt;!&ndash; ==================== 离线推送账号配置 BEGIN ==================== &ndash;&gt;-->
+<!--            &lt;!&ndash; 环信账号配置 &ndash;&gt;-->
+<!--            <meta-data-->
+<!--                android:name="EASEMOB_APPKEY"-->
+<!--                android:value="@string/EASEMOB_APPKEY" />-->
+
+<!--            &lt;!&ndash; Mi账号配置 &ndash;&gt;-->
+<!--            <meta-data-->
+<!--                android:name="com.mi.push.api_key"-->
+<!--                android:value="@string/MI_PUSH_APPKEY" />-->
+<!--            <meta-data-->
+<!--                android:name="com.mi.push.app_id"-->
+<!--                android:value="@string/MI_PUSH_APPID" />-->
+
+<!--            &lt;!&ndash;华为账号配置 &ndash;&gt;-->
+<!--            <meta-data-->
+<!--                android:name="com.huawei.hms.client.appid"-->
+<!--                android:value="@string/HUAWEI_PUSH_APPKID" />-->
+<!--            <meta-data-->
+<!--                android:name="push_kit_auto_init_enabled"-->
+<!--                android:value="true"/>-->
+
+<!--            &lt;!&ndash; MEIZU账号配置 &ndash;&gt;-->
+<!--            <meta-data-->
+<!--                android:name="com.meizu.push.api_key"-->
+<!--                android:value="@string/MEIZU_PUSH_APPKEY" />-->
+<!--            <meta-data-->
+<!--                android:name="com.meizu.push.app_id"-->
+<!--                android:value="@string/MEIZU_PUSH_APPID" />-->
+
+<!--            &lt;!&ndash; Oppo账号配置 &ndash;&gt;-->
+<!--            <meta-data-->
+<!--                android:name="com.oppo.push.api_key"-->
+<!--                android:value="@string/OPPO_PUSH_APPKEY" />-->
+<!--            <meta-data-->
+<!--                android:name="com.oppo.push.app_secret"-->
+<!--                android:value="@string/OPPO_PUSH_APPSECRET" />-->
+
+<!--            &lt;!&ndash; VIVO账号配置 &ndash;&gt;-->
+<!--            <meta-data-->
+<!--                android:name="com.vivo.push.api_key"-->
+<!--                android:value="@string/VIVO_PUSH_APPKEY" />-->
+<!--            <meta-data-->
+<!--                android:name="com.vivo.push.app_id"-->
+<!--                android:value="@integer/VIVO_PUSH_APPID" />-->
+<!--        &lt;!&ndash; ==================== 离线推送账号配置 END ==================== &ndash;&gt;-->
+
+
+<!--        &lt;!&ndash; ==================== 离线推送服务 BEGIN ==================== &ndash;&gt;-->
+<!--            &lt;!&ndash; Mi推送服务配置 start &ndash;&gt;-->
+<!--            <service-->
+<!--                android:name="com.xiaomi.push.service.XMPushService"-->
+<!--                android:enabled="true"-->
+<!--                android:process=":pushservice" />-->
+<!--            <service-->
+<!--                android:name="com.xiaomi.push.service.XMJobService"-->
+<!--                android:enabled="true"-->
+<!--                android:exported="false"-->
+<!--                android:permission="android.permission.BIND_JOB_SERVICE"-->
+<!--                android:process=":pushservice" /> &lt;!&ndash;注：此service必须在3.0.1版本以后（包括3.0.1版本）加入&ndash;&gt;-->
+<!--            <service-->
+<!--                android:name="com.xiaomi.mipush.sdk.PushMessageHandler"-->
+<!--                android:enabled="true"-->
+<!--                android:exported="true" />-->
+<!--            <service-->
+<!--                android:name="com.xiaomi.mipush.sdk.MessageHandleService"-->
+<!--                android:enabled="true" /> &lt;!&ndash;注：此service必须在2.2.5版本以后（包括2.2.5版本）加入&ndash;&gt;-->
+<!--            <receiver-->
+<!--                android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"-->
+<!--                android:exported="true">-->
+<!--                <intent-filter>-->
+<!--                    <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
+<!--                    <category android:name="android.intent.category.DEFAULT" />-->
+<!--                </intent-filter>-->
+<!--            </receiver>-->
+<!--            <receiver-->
+<!--                android:name="com.xiaomi.push.service.receivers.PingReceiver"-->
+<!--                android:exported="false"-->
+<!--                android:process=":pushservice">-->
+<!--                <intent-filter>-->
+<!--                    <action android:name="com.xiaomi.push.PING_TIMER" />-->
+<!--                </intent-filter>-->
+<!--            </receiver>-->
+<!--            <receiver android:name="com.hyphenate.push.platform.mi.EMMiMsgReceiver">-->
+<!--                <intent-filter>-->
+<!--                    <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />-->
+<!--                </intent-filter>-->
+<!--                <intent-filter>-->
+<!--                    <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />-->
+<!--                </intent-filter>-->
+<!--                <intent-filter>-->
+<!--                    <action android:name="com.xiaomi.mipush.ERROR" />-->
+<!--                </intent-filter>-->
+<!--            </receiver>-->
+<!--            &lt;!&ndash; Mi推送服务配置 end&ndash;&gt;-->
+
+<!--            &lt;!&ndash; HuaWei 推送服务配置 start &ndash;&gt;-->
+<!--            <service android:name="io.agora.iotcallkitdemo.huanxin.HMSPushService"-->
+<!--                android:exported="false">-->
+<!--                <intent-filter>-->
+<!--                    <action android:name="com.huawei.push.action.MESSAGING_EVENT" />-->
+<!--                </intent-filter>-->
+<!--            </service>-->
+<!--            &lt;!&ndash; HuaWei 推送服务配置 end &ndash;&gt;-->
+
+<!--            &lt;!&ndash; MEIZU推送服务配置 start &ndash;&gt;-->
+<!--            <receiver android:name="com.hyphenate.push.platform.meizu.EMMzMsgReceiver">-->
+<!--                <intent-filter>-->
+<!--                    <action android:name="com.meizu.flyme.push.intent.MESSAGE"/>-->
+<!--                    <action android:name="com.meizu.flyme.push.intent.REGISTER.FEEDBACK" />-->
+<!--                    <action android:name="com.meizu.flyme.push.intent.UNREGISTER.FEEDBACK"/>-->
+<!--                    <action android:name="com.meizu.c2dm.intent.REGISTRATION"/>-->
+<!--                    <action android:name="com.meizu.c2dm.intent.RECEIVE" />-->
+<!--                    <category android:name="${applicationId}"></category>-->
+<!--                </intent-filter>-->
+<!--            </receiver>-->
+<!--            &lt;!&ndash; MEIZU推送服务配置 end &ndash;&gt;-->
+
+<!--            &lt;!&ndash; Oppo推送服务配置 start &ndash;&gt;-->
+<!--            <service-->
+<!--                android:name="com.heytap.msp.push.service.CompatibleDataMessageCallbackService"-->
+<!--                android:permission="com.coloros.mcs.permission.SEND_MCS_MESSAGE"-->
+<!--                android:exported="false" >-->
+<!--                <intent-filter>-->
+<!--                    <action android:name="com.coloros.mcs.action.RECEIVE_MCS_MESSAGE"/>-->
+<!--                </intent-filter>-->
+<!--            </service> &lt;!&ndash;兼容Q以下版本&ndash;&gt;-->
+<!--            <service-->
+<!--                android:name="com.heytap.msp.push.service.DataMessageCallbackService"-->
+<!--                android:permission="com.heytap.mcs.permission.SEND_PUSH_MESSAGE"-->
+<!--                android:exported="false">-->
+<!--                <intent-filter>-->
+<!--                    <action android:name="com.heytap.mcs.action.RECEIVE_MCS_MESSAGE"/>-->
+<!--                    <action android:name="com.heytap.msp.push.RECEIVE_MCS_MESSAGE"/>-->
+<!--                </intent-filter>-->
+<!--            </service> &lt;!&ndash;兼容Q版本&ndash;&gt;-->
+<!--            &lt;!&ndash; Oppo推送服务配置 end &ndash;&gt;-->
+
+<!--            &lt;!&ndash; VIVO推送服务配置 start &ndash;&gt;-->
+<!--            <service-->
+<!--                android:name="com.vivo.push.sdk.service.CommandClientService"-->
+<!--                android:exported="true" />-->
+<!--            <activity-->
+<!--                android:name="com.vivo.push.sdk.LinkProxyClientActivity"-->
+<!--                android:exported="false"-->
+<!--                android:screenOrientation="portrait"-->
+<!--                android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
+<!--            <receiver-->
+<!--                android:name="com.hyphenate.push.platform.vivo.EMVivoMsgReceiver"-->
+<!--                android:exported="false" >-->
+<!--                <intent-filter>-->
+<!--                    &lt;!&ndash; 接收 push 消息 &ndash;&gt;-->
+<!--                    <action android:name="com.vivo.pushclient.action.RECEIVE" />-->
+<!--                </intent-filter>-->
+<!--            </receiver>-->
+<!--            &lt;!&ndash; VIVO推送服务配置 end &ndash;&gt;-->
+<!--        &lt;!&ndash; ==================== 离线推送服务 END ==================== &ndash;&gt;-->
+
+    </application>
+
+    <!-- targetSdkVersion是30或者更高版本时，需要添加<queries>标签，使应用可以访问HMS Core（APK） -->
+    <queries>
+        <intent>
+            <action android:name="com.huawei.hms.core.aidlservice" />
+        </intent>
+    </queries>
+    <!--HMS Core（APK）访问配置 end-->
+
+</manifest>

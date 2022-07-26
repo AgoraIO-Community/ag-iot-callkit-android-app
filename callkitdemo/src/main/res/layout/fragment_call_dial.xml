@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_myaccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="Microsoft YaHei UI"
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:text="当前账号: "
+            android:textColor="#FF333333"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_accountid_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="Microsoft YaHei UI"
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:text="账号ID: "
+            android:textColor="#FF333333"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_accountid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="10dp"
+            android:fontFamily="Microsoft YaHei UI"
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:text=""
+            android:textIsSelectable="true"
+            android:textColor="#FF333333"
+            android:textSize="16sp" />
+
+
+            <EditText
+                android:id="@+id/et_accountid"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/_1"
+                android:ems="10"
+                android:hint=" 输入对端账号Id"
+                android:inputType="textEmailAddress"
+                android:textColor="#666666"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tx_rigester_tital" />
+
+
+            <Button
+                android:id="@+id/btn_dial"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:text="呼 叫"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@drawable/ic_btn_enable_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        <EditText
+            android:id="@+id/et_productKey"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/_1"
+            android:ems="10"
+            android:hint=" 输入产品 ProductKey"
+            android:text="EJIJEIm68gl5b5lI4"
+            android:inputType="textEmailAddress"
+            android:textColor="#666666"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_dial" />
+
+        <EditText
+            android:id="@+id/et_deviceid"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/_1"
+            android:ems="10"
+            android:hint=" 输入设备 deviceId"
+            android:inputType="textEmailAddress"
+            android:textColor="#666666"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tx_rigester_tital" />
+
+        <Button
+            android:id="@+id/btn_dialdevice"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center"
+            android:text="呼叫设备"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:background="@drawable/ic_btn_enable_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
