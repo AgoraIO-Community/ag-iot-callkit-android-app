@@ -1,48 +1,23 @@
 package io.agora.iotcallkit.callkit;
 
-import android.os.Environment;
-import android.util.Log;
-
 import io.agora.iotcallkit.ErrCode;
-import io.agora.iotcallkit.granwin.GranwinService;
 import io.agora.iotcallkit.logger.ALog;
+import io.agora.iotcallkit.lowservice.AgoraLowService;
 import io.agora.iotcallkit.sdkimpl.AccountMgr;
-import com.amazonaws.http.HttpClient;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
 
 
@@ -364,7 +339,7 @@ public class AgoraService {
         public String mAnonymosName;            ///< 内部分配的匿名名字
         public String mEndpoint;                ///< iot 平台节点
         public String mRegion;                  ///< 节点
-        public String mGranwinToken;            ///< 平台凭证
+        public String mPlatformToken;           ///< 平台凭证
         public long mExpiration;                ///< mGranwinToken 过期时间
         public String mRefresh;                 ///< 平台刷新凭证密钥
 
@@ -443,7 +418,7 @@ public class AgoraService {
             loginResult.mEndpoint = parseJsonStringValue(infoObj, "endpoint", null);
             loginResult.mRegion = parseJsonStringValue(infoObj, "region", null);
             loginResult.mExpiration = parseJsonLongValue(infoObj, "expiration", -1);
-            loginResult.mGranwinToken = parseJsonStringValue(infoObj, "granwin_token", null);
+            loginResult.mPlatformToken = parseJsonStringValue(infoObj, "granwin_token", null);
 
             JSONObject poolObj = infoObj.getJSONObject("pool");
             loginResult.mPoolIdentifier = parseJsonStringValue(poolObj, "identifier", null);
@@ -458,8 +433,8 @@ public class AgoraService {
             loginResult.mProofSessionExpiration = parseJsonLongValue(proofObj,"sessionExpiration", -1);
 
             // 拼接user映射的虚拟设备thing name
-            loginResult.mInventDeviceName = GranwinService.getInstance().queryInventDeviceName(
-                                                loginResult.mGranwinToken);
+            loginResult.mInventDeviceName = AgoraLowService.getInstance().queryInventDeviceName(
+                                                loginResult.mPlatformToken);
 
             loginResult.mErrCode = ErrCode.XOK;
 
@@ -648,7 +623,7 @@ public class AgoraService {
          anonymousResult.mAccountInfo.mAnonymosName = loginResult.mAnonymosName;
          anonymousResult.mAccountInfo.mEndpoint = loginResult.mEndpoint;
          anonymousResult.mAccountInfo.mRegion = loginResult.mRegion;
-         anonymousResult.mAccountInfo.mGranwinToken = loginResult.mGranwinToken;
+         anonymousResult.mAccountInfo.mPlatformToken = loginResult.mPlatformToken;
          anonymousResult.mAccountInfo.mExpiration = loginResult.mExpiration;
          anonymousResult.mAccountInfo.mRefresh = loginResult.mRefresh;
          anonymousResult.mAccountInfo.mPoolIdentifier = loginResult.mPoolIdentifier;

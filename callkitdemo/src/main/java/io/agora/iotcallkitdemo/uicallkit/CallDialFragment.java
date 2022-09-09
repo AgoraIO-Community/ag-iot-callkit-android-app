@@ -36,6 +36,7 @@ import android.view.ViewGroup;
 import io.agora.iotcallkitdemo.HomePageActivity;
 import io.agora.iotcallkitdemo.PushApplication;
 import io.agora.iotcallkitdemo.databinding.FragmentCallDialBinding;
+import io.agora.iotcallkitdemo.thirdpartyaccount.ThirdAccountMgr;
 import io.agora.iotcallkitdemo.uibase.BaseFragment;
 import io.agora.iotcallkitdemo.uibase.PermissionHandler;
 import io.agora.iotcallkitdemo.uibase.PermissionItem;
@@ -107,8 +108,8 @@ public class CallDialFragment extends BaseFragment implements IAccountMgr.ICallb
         Log.d(TAG, "<onViewCreated>");
         super.onViewCreated(view, savedInstanceState);
 
-        String accountName = ACallkitSdkFactory.getInstance().getAccountMgr().getAccount();
-        String accountId = ACallkitSdkFactory.getInstance().getAccountMgr().getAccountId();
+        String accountName = ThirdAccountMgr.getInstance().getLoginAccountName();
+        String accountId =  ACallkitSdkFactory.getInstance().getAccountMgr().getAccountId();
         mBinding.tvMyaccount.setText("当前账号: " + accountName);
         mBinding.tvAccountid.setText(accountId);
 

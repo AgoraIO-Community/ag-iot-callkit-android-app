@@ -35,7 +35,7 @@ import android.os.Environment;
 import android.os.Process;
 import android.util.Log;
 
-//import io.agora.iotcallkitdemo.huanxin.EmAgent;
+import io.agora.iotcallkitdemo.huanxin.EmAgent;
 import io.agora.iotcallkitdemo.uicallkit.CallIncomingActivity;
 import io.agora.iotcallkit.ACallkitSdkFactory;
 import io.agora.iotcallkit.IAgoraCallkitSdk;
@@ -187,7 +187,6 @@ public class PushApplication extends Application  implements ICallkitMgr.ICallba
         initParam.mPublishAudio = true;
         initParam.mSubscribeAudio = true;
         initParam.mSubscribeVideo = true;
-
         //String storageRootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         //initParam.mLogFilePath = storageRootPath + "/callkit.log";
 

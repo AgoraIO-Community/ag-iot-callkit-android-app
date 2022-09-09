@@ -89,6 +89,20 @@
                 android:text="登  出"
                 android:textColor="#FFFFFFFF"
                 android:textSize="24sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_unregister"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"
+                android:background="#FF3C7CF6"
+                android:fontFamily="Microsoft YaHei UI"
+                android:gravity="center"
+                android:text="注 销"
+                android:textColor="#FFFFFFFF"
+                android:textSize="24sp" />
+
         </LinearLayout>
 
 

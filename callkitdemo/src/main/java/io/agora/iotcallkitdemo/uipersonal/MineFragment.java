@@ -26,6 +26,7 @@ package io.agora.iotcallkitdemo.uipersonal;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ import androidx.appcompat.app.AlertDialog;
 import io.agora.iotcallkitdemo.AppStorageUtil;
 import io.agora.iotcallkitdemo.R;
 import io.agora.iotcallkitdemo.databinding.FragmentMineBinding;
+import io.agora.iotcallkitdemo.thirdpartyaccount.ThirdAccountMgr;
 import io.agora.iotcallkitdemo.uibase.BaseFragment;
 import io.agora.iotcallkit.ACallkitSdkFactory;
 import io.agora.iotcallkit.ErrCode;
@@ -47,7 +49,7 @@ import io.agora.iotcallkit.IAccountMgr;
 public class MineFragment  extends BaseFragment implements IAccountMgr.ICallback {
     private final String TAG = "IOTAPP20/MineFragment";
     private FragmentMineBinding mBinding;
-    private String mNewPassword;
+    private boolean mUnregistering = false;
 
 
     @Nullable
@@ -80,12 +82,17 @@ public class MineFragment  extends BaseFragment implements IAccountMgr.ICallback
             }
         });
 
-        String accountName = ACallkitSdkFactory.getInstance().getAccountMgr().getAccount();
+        mBinding.btnUnregister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBtnUnregister();
+            }
+        });
+
+        String accountName = ThirdAccountMgr.getInstance().getLoginAccountName();
         if (accountName != null) {
             mBinding.tvAccount.setText("当前账号: " + accountName);
         }
-
-
 
     }
 
@@ -131,6 +138,48 @@ public class MineFragment  extends BaseFragment implements IAccountMgr.ICallback
     }
 
 
+    void onBtnUnregister() {
+        // 显示进度条
+        progressShow("第三方账号注销中...");
+
+        // 先要进行SDK登出操作
+        // 登出操作
+        mUnregistering = true;
+        int ret = ACallkitSdkFactory.getInstance().getAccountMgr().logout();
+
+
+        // 注销操作
+        String accountName = AppStorageUtil.queryValue(AppStorageUtil.KEY_ACCOUNT);
+        String password = AppStorageUtil.queryValue(AppStorageUtil.KEY_PASSWORD);
+        ThirdAccountMgr.getInstance().unregister(accountName, password, new ThirdAccountMgr.IUnregisterCallback() {
+            @Override
+            public void onThirdAccountUnregisterDone(int errCode, final String errMessage,
+                                                     final String account, final String password) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressHide();
+                        if (errCode != ErrCode.XOK) {
+                            if (TextUtils.isEmpty(errMessage)) {
+                                popupMessage("第三方账号注销失败, 错误码=" + errCode);
+                            } else {
+                                popupMessage("第三方账号注销失败, 错误信息=" + errMessage);
+                            }
+
+                        } else {
+                            popupMessage("第三方账号注销成功!");
+                            AppStorageUtil.deleteAllValue();
+
+                            // 登出成功后直接退出当前界面，返回到入口界面，清空Activity堆栈
+                            GotoEntryActivity();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+
     ////////////////////////////////////////////////////////////////////////////
     /////////////////// Override IAccountMgr.ICallback Methods /////////////////
     ////////////////////////////////////////////////////////////////////////////
@@ -138,6 +187,9 @@ public class MineFragment  extends BaseFragment implements IAccountMgr.ICallback
     @Override
     public void onLogoutDone(int errCode, String account) {
         Log.d(TAG, "<onLogoutDone> errCode=" + errCode + ", account=" + account);
+        if (mUnregistering) {  // 注销的登录操作不用处理
+            return;
+        }
 
         getActivity().runOnUiThread(new Runnable() {
             @Override

@@ -52,7 +52,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import io.agora.iotcallkitdemo.uiaccount.LoginActivity;
+import io.agora.iotcallkitdemo.uiaccount.EntryActivity;
 
 
 public abstract class BaseActivity extends AppCompatActivity  {
@@ -276,7 +276,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
         new android.os.Handler(Looper.getMainLooper()).postDelayed(
                 new Runnable() {
                     public void run() {
-                        Intent intent = new Intent(ctx, LoginActivity.class);
+                        Intent intent = new Intent(ctx, EntryActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();

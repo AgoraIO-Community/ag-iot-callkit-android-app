@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context="io.agora.iotcallkitdemo.uiaccount.EntryActivity">
+
+
+    <TextView
+        android:id="@+id/tx_welcome"
+        android:layout_width="280dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="120dp"
+        android:gravity="center"
+        android:text="Welcome"
+        android:textColor="#3C7CF6"
+        android:textSize="56sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tx_slogan"
+        android:layout_width="120dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="智能·安全·便捷"
+        android:textColor="#666666"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tx_welcome" />
+
+    <Button
+        android:id="@+id/btn_account_login"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="160dp"
+        android:background="#3C7CF6"
+        android:text="登录"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tx_slogan" />
+
+    <Button
+        android:id="@+id/btn_account_register"
+        android:layout_width="250dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="30dp"
+        android:background="#3C7CF6"
+        android:text="注册"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_account_login" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

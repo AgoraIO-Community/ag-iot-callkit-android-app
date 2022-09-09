@@ -36,7 +36,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import io.agora.iotcallkitdemo.HomePageActivity;
-import io.agora.iotcallkitdemo.uiaccount.LoginActivity;
+import io.agora.iotcallkitdemo.uiaccount.EntryActivity;
+import io.agora.iotcallkitdemo.uiaccount.ThirdLoginActivity;
 
 
 public class BaseFragment extends Fragment {
@@ -84,7 +85,7 @@ public class BaseFragment extends Fragment {
         new android.os.Handler(Looper.getMainLooper()).postDelayed(
                 new Runnable() {
                     public void run() {
-                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        Intent intent = new Intent(getActivity(), ThirdLoginActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         getActivity().finish();
@@ -97,7 +98,7 @@ public class BaseFragment extends Fragment {
         new android.os.Handler(Looper.getMainLooper()).postDelayed(
                 new Runnable() {
                     public void run() {
-                        Intent intent = new Intent(getActivity(), LoginActivity.class);
+                        Intent intent = new Intent(getActivity(), EntryActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         getActivity().finish();

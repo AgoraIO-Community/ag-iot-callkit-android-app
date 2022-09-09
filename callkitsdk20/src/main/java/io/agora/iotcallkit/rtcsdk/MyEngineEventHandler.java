@@ -14,6 +14,7 @@ import android.util.Log;
 
 import io.agora.iotcallkit.logger.ALog;
 
+import io.agora.rtc2.Constants;
 import io.agora.rtc2.IRtcEngineEventHandler;
 import java.util.Iterator;
 import java.util.Locale;
@@ -57,20 +58,6 @@ public class MyEngineEventHandler {
             name = s;
         }
 
-//        @Override
-//        public void onFirstRemoteVideoDecoded(int uid, int width, int height, int elapsed) {
-//            String strLog = String.format(Locale.getDefault(),
-//                    "<onFirstRemoteVideoDecoded> uid=%d, width=%d, height=%d, elapsed=%d",
-//                    uid, width, height, elapsed);
-//            ALog.getInstance().d(TAG, strLog);
-//
-//            Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
-//            while (it.hasNext()) {
-//                AGEventHandler handler = it.next();
-//                handler.onFirstRemoteVideoDecoded(uid, width, height, elapsed);
-//            }
-//        }
-
         @Override
         public void onFirstRemoteVideoFrame(int uid, int width, int height, int elapsed) {
             String strLog = String.format(Locale.getDefault(), "<onFirstRemoteVideoFrame> uid=%d, width=%d, height=%d, elapsed=%d",
@@ -85,7 +72,7 @@ public class MyEngineEventHandler {
         }
 
         @Override
-        public void onFirstLocalVideoFrame(int width, int height, int elapsed) {
+        public void onFirstLocalVideoFrame(Constants.VideoSourceType source, int width, int height, int elapsed) {
             String strLog = String.format(Locale.getDefault(),"<onFirstLocalVideoFrame> width=%d, height=%d, elapsed=%d",
                     width, height, elapsed);
             ALog.getInstance().d(TAG, strLog);
@@ -122,13 +109,6 @@ public class MyEngineEventHandler {
             }
         }
 
-//        @Override
-//        public void onUserMuteVideo(int uid, boolean muted) {
-//            String strLog = String.format(Locale.getDefault(),"<onUserMuteVideo> uid=%d, muted=%d", uid, muted);
-//            ALog.getInstance().d(TAG, strLog);
-//        }
-
-
         @Override
         public void onLeaveChannel(RtcStats stats) {
             ALog.getInstance().d(TAG, "<onLeaveChannel> stats=" + stats);
@@ -151,11 +131,6 @@ public class MyEngineEventHandler {
             }
         }
 
-//        @Override
-//        public void onError(int err) {
-//            super.onError(err);
-//            ALog.getInstance().d(TAG, "<onError> err=" + err);
-//        }
 
         @Override
         public void onFacePositionChanged(int imageWidth, int imageHeight, AgoraFacePositionInfo[] faceRectArr) {
@@ -186,9 +161,9 @@ public class MyEngineEventHandler {
 //        }
 
         public void onLocalVideoStats(IRtcEngineEventHandler.LocalVideoStats stats) {
-            String strLog = String.format(Locale.getDefault(),"<onLocalVideoStats> stats=%s, encodedFrameWidth=%d, encodedFrameHeight=%d",
-                    stats.toString(), stats.encodedFrameWidth, stats.encodedFrameHeight);
-            ALog.getInstance().d(TAG, strLog);
+//            String strLog = String.format(Locale.getDefault(),"<onLocalVideoStats> stats=%s, encodedFrameWidth=%d, encodedFrameHeight=%d",
+//                    stats.toString(), stats.encodedFrameWidth, stats.encodedFrameHeight);
+//            ALog.getInstance().d(TAG, strLog);
 
             Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
             while (it.hasNext()) {
@@ -198,7 +173,7 @@ public class MyEngineEventHandler {
         }
 
         public void onRtcStats(IRtcEngineEventHandler.RtcStats stats) {
-            ALog.getInstance().d(TAG, "<onRtcStats> stats=" + stats);
+ //           ALog.getInstance().d(TAG, "<onRtcStats> stats=" + stats);
 
              Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
             while (it.hasNext()) {
@@ -208,9 +183,9 @@ public class MyEngineEventHandler {
         }
 
         public void onNetworkQuality(int uid, int txQuality, int rxQuality) {
-            String strLog = String.format(Locale.getDefault(),"<onNetworkQuality> channel=%s, uid=%d, muted=%d",
-                    uid, txQuality, rxQuality);
-            ALog.getInstance().d(TAG, strLog);
+//           String strLog = String.format(Locale.getDefault(),"<onNetworkQuality> channel=%s, uid=%d, muted=%d",
+//                    uid, txQuality, rxQuality);
+//            ALog.getInstance().d(TAG, strLog);
 
             Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
             while (it.hasNext()) {
@@ -220,9 +195,9 @@ public class MyEngineEventHandler {
         }
 
         public void onRemoteVideoStats(IRtcEngineEventHandler.RemoteVideoStats stats) {
-            String strLog = String.format(Locale.getDefault(),"<onLocalVideoStats> stats=%s, width=%d, height=%d",
-                    stats.toString(), stats.width, stats.height);
-            ALog.getInstance().d(TAG, strLog);
+//            String strLog = String.format(Locale.getDefault(),"<onRemoteVideoStats> stats=%s, width=%d, height=%d",
+//                    stats.toString(), stats.width, stats.height);
+//            ALog.getInstance().d(TAG, strLog);
 
             Iterator<AGEventHandler> it = mEventHandlerList.keySet().iterator();
             while (it.hasNext()) {

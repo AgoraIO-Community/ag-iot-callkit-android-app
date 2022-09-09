@@ -24,14 +24,10 @@ import io.agora.iotcallkit.IAgoraCallkitSdk;
 import io.agora.iotcallkit.ICallkitMgr;
 import io.agora.iotcallkit.aws.AWSUtils;
 import io.agora.iotcallkit.callkit.AgoraService;
-import io.agora.iotcallkit.callkit.CallkitContext;
-import io.agora.iotcallkit.granwin.GranwinService;
 import io.agora.iotcallkit.logger.ALog;
+import io.agora.iotcallkit.lowservice.AgoraLowService;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -96,7 +92,7 @@ public class AgoraCallkitSdk implements IAgoraCallkitSdk {
             AgoraService.getInstance().setBaseUrl(initParam.mSlaveServerUrl);
         }
         if (initParam.mMasterServerUrl != null) {
-            GranwinService.getInstance().setBaseUrl(initParam.mMasterServerUrl);
+            AgoraLowService.getInstance().setBaseUrl(initParam.mMasterServerUrl);
         }
 
         //

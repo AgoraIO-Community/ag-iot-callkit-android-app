@@ -16,7 +16,7 @@ import io.agora.iotcallkit.logger.ALog;
 
 import io.agora.rtc2.Constants;
 import io.agora.rtc2.video.EncodedVideoFrameInfo;
-import io.agora.rtc2.video.IVideoEncodedImageReceiver;
+import io.agora.rtc2.video.IVideoEncodedFrameObserver;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
@@ -26,9 +26,7 @@ import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-
-
-public class VideoEncodedImageReceiver implements IVideoEncodedImageReceiver {
+public class VideoEncodedImageReceiver implements IVideoEncodedFrameObserver {
     private final static String TAG = "IOTSDK/VidEncImgRcver";
     public static final String APP_DIRECTORY = Environment.getExternalStorageDirectory()
                                             + File.separator + "com.agora.agoracallkit";
@@ -36,8 +34,8 @@ public class VideoEncodedImageReceiver implements IVideoEncodedImageReceiver {
     private final ConcurrentHashMap<String, File> mSavedDir = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, Integer> mSavedFrameIndex = new ConcurrentHashMap<>();
 
-    public boolean OnEncodedVideoImageReceived(ByteBuffer buffer,
-        EncodedVideoFrameInfo info) {
+    @Override
+    public boolean OnEncodedVideoFrameReceived(ByteBuffer buffer, EncodedVideoFrameInfo info) {
         String strLog = String.format(Locale.getDefault(),
                 "<OnEncodedVideoImageReceived> remoteUid=%d, buffer.capacity=%d, info=%s",
                 info.uid, buffer.capacity(), info.toString());

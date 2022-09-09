@@ -23,6 +23,7 @@ import io.agora.iotcallkit.IAgoraCallkitSdk;
 import io.agora.iotcallkit.aws.AWSUtils;
 import io.agora.iotcallkit.callkit.AgoraService;
 import io.agora.iotcallkit.logger.ALog;
+import io.agora.iotcallkit.lowservice.AgoraLowService;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,7 @@ public class AccountMgr implements IAccountMgr {
         public String mAnonymosName;            ///< 匿名的账号名称
         public String mEndpoint;                ///< iot 平台节点
         public String mRegion;                  ///< 节点
-        public String mGranwinToken;            ///< 平台凭证
+        public String mPlatformToken;           ///< 平台凭证
         public long mExpiration;                ///< mGranwinToken 过期时间
         public String mRefresh;                 ///< 平台刷新凭证密钥
 
@@ -108,7 +109,8 @@ public class AccountMgr implements IAccountMgr {
 
     private static final Object mDataLock = new Object();       ///< 同步访问锁,类中所有变量需要进行加锁处理
     private volatile int mStateMachine = ACCOUNT_STATE_IDLE;    ///< 当前呼叫状态机
-    private AccountInfo mLoginAccount;                          ///< 当前正在登录的广云账号信息
+    private AgoraService.AccountTokenInfo mAgoraAccount;        ///< 登录Agora的账号Token信息
+    private AgoraLowService.AccountInfo mLoginAccount;          ///< 当前正在登录的底层账号信息
     private AccountInfo mLocalAccount;                          ///< 当前已经登录账号, null表示未登录
 
 
@@ -227,7 +229,7 @@ public class AccountMgr implements IAccountMgr {
 
 
     @Override
-    public int login(final String account) {
+    public int login(final LoginParam loginParam) {
         if (getStateMachine() != ACCOUNT_STATE_IDLE) {
             ALog.getInstance().e(TAG, "<login> bad state, mStateMachine=" + mStateMachine);
             return ErrCode.XERR_BAD_STATE;
@@ -239,10 +241,8 @@ public class AccountMgr implements IAccountMgr {
             mLocalAccount = null;
         }
         mSdkInstance.setStateMachine(IAgoraCallkitSdk.SDK_STATE_LOGINING);
-        LoginInfo loginInfo = new LoginInfo();
-        loginInfo.account = account;
-        sendMessage(MSGID_ACCOUNT_LOGIN, 0, 0, loginInfo);
-        ALog.getInstance().d(TAG, "<login> account=" + account);
+        sendMessage(MSGID_ACCOUNT_LOGIN, 0, 0, loginParam);
+        ALog.getInstance().d(TAG, "<login> loginParam=" + loginParam.toString());
         return ErrCode.XOK;
     }
 
@@ -265,7 +265,7 @@ public class AccountMgr implements IAccountMgr {
     }
 
     @Override
-    public String getAccount() {
+    public String getLoggedAccount() {
         synchronized (mDataLock) {
             if (mLocalAccount == null) {
                 return null;
@@ -284,7 +284,6 @@ public class AccountMgr implements IAccountMgr {
         }
     }
 
-
     public AccountInfo getAccountInfo() {
         synchronized (mDataLock) {
             return mLocalAccount;
@@ -301,38 +300,35 @@ public class AccountMgr implements IAccountMgr {
      * @brief 工作线程中进行实际的登录操作
      */
     void DoAccountLogin(Message msg) {
-        LoginInfo loginInfo = (LoginInfo)(msg.obj);
+        LoginParam loginParam = (LoginParam)(msg.obj);
         IAgoraCallkitSdk.InitParam initParam = mSdkInstance.getInitParam();
-        String loginName = initParam.mProjectId + "-" + loginInfo.account;
 
-        //
-        // 进行Agora的账号匿名登录
-        //
-        AgoraService.RetrieveTokenParam retrieveParam = new AgoraService.RetrieveTokenParam();
-        retrieveParam.mGrantType = "password";
-        retrieveParam.mUserName = loginName;
-        retrieveParam.mPassword = "111111";
-        retrieveParam.mScope = "read";
-        retrieveParam.mClientId = "9598156a7d15428f83f828a70f40aad5";
-        retrieveParam.mSecretKey = "MRbRz1kGau9BZE0gWRh9YMZSYc1Ue06v";
-
-        AgoraService.AnonymousLoginResult agoraAccount;
-        agoraAccount = AgoraService.getInstance().anonymousLogin(retrieveParam);
-        if (agoraAccount.mErrCode != ErrCode.XOK) {
-            synchronized (mDataLock) {
-                mStateMachine = ACCOUNT_STATE_IDLE; // 状态机切换回 未登录 状态
-                mLocalAccount = null;               // 清空已经登录的本地账号
-                mLoginAccount = null;
-            }
-            mSdkInstance.setStateMachine(IAgoraCallkitSdk.SDK_STATE_READY);
-            ALog.getInstance().e(TAG, "<DoAccountLogIn> failure with Agora account register"
-                        + ", errCode=" + agoraAccount.mErrCode);
-            CallbackLogInDone(agoraAccount.mErrCode, loginInfo.account);
-            return;
-        }
         synchronized (mDataLock) {
-            mLoginAccount = agoraAccount.mAccountInfo;
+            mAgoraAccount = new AgoraService.AccountTokenInfo();
+            mAgoraAccount.mAccessToken = loginParam.mLsAccessToken;
+            mAgoraAccount.mTokenType = loginParam.mLsTokenType;
+            mAgoraAccount.mRefreshToken = loginParam.mLsRefreshToken;
+            mAgoraAccount.mExpriesIn = loginParam.mLsExpiresIn;
+            mAgoraAccount.mScope = loginParam.mLsScope;
+
+            mLoginAccount = new AgoraLowService.AccountInfo();
+            mLoginAccount.mAccount = loginParam.mAccount;
+            mLoginAccount.mEndpoint = loginParam.mEndpoint;
+            mLoginAccount.mRegion = loginParam.mRegion;
+            mLoginAccount.mPlatformToken = loginParam.mPlatformToken;
+            mLoginAccount.mExpiration = loginParam.mExpiration;
+            mLoginAccount.mRefresh = loginParam.mRefresh;
+            mLoginAccount.mPoolIdentifier = loginParam.mPoolIdentifier;
+            mLoginAccount.mPoolIdentityId = loginParam.mPoolIdentityId;
+            mLoginAccount.mPoolToken = loginParam.mPoolToken;
+            mLoginAccount.mIdentityPoolId = loginParam.mIdentityPoolId;
+            mLoginAccount.mProofAccessKeyId = loginParam.mProofAccessKeyId;
+            mLoginAccount.mProofSecretKey = loginParam.mProofSecretKey;
+            mLoginAccount.mProofSessionToken = loginParam.mProofSessionToken;
+            mLoginAccount.mProofSessionExpiration = loginParam.mProofSessionExpiration;
+            mLoginAccount.mInventDeviceName = loginParam.mInventDeviceName;
         }
+
 
         //
         // 初始化 AWS 联接
@@ -349,7 +345,7 @@ public class AccountMgr implements IAccountMgr {
                 aws_identityId, aws_endpoint, aws_token, aws_accountId,
                 aws_identityPoolId, aws_region, aws_inventDeviceName);
 
-        ALog.getInstance().d(TAG, "<DoAccountLogInDone> initAWSIotClient"
+        ALog.getInstance().d(TAG, "<DoAccountLogin> initAWSIotClient"
                 + ", aws_account=" + aws_account
                 + ", aws_identityId=" + aws_identityId
                 + ", aws_endpoint=" + aws_endpoint
@@ -411,10 +407,9 @@ public class AccountMgr implements IAccountMgr {
                 // 设置当前已经登录账号信息
                 mLocalAccount = new AccountInfo();
                 mLocalAccount.mAccount = mLoginAccount.mAccount;
-                mLocalAccount.mAnonymosName = mLoginAccount.mAnonymosName;
                 mLocalAccount.mEndpoint = mLoginAccount.mEndpoint;
                 mLocalAccount.mRegion = mLoginAccount.mRegion;
-                mLocalAccount.mGranwinToken = mLoginAccount.mGranwinToken;
+                mLocalAccount.mPlatformToken = mLoginAccount.mPlatformToken;
                 mLocalAccount.mExpiration = mLoginAccount.mExpiration;
                 mLocalAccount.mRefresh = mLoginAccount.mRefresh;
                 mLocalAccount.mPoolIdentifier = mLoginAccount.mPoolIdentifier;
@@ -426,14 +421,16 @@ public class AccountMgr implements IAccountMgr {
                 mLocalAccount.mProofSessionToken = mLoginAccount.mProofSessionToken;
                 mLocalAccount.mProofSessionExpiration = mLoginAccount.mProofSessionExpiration;
                 mLocalAccount.mInventDeviceName = mLoginAccount.mInventDeviceName;
-
-                mLocalAccount.mAgoraScope = mLoginAccount.mAgoraScope;
-                mLocalAccount.mAgoraTokenType = mLoginAccount.mAgoraTokenType;
-                mLocalAccount.mAgoraAccessToken = mLoginAccount.mAgoraAccessToken;
-                mLocalAccount.mAgoraRefreshToken = mLoginAccount.mAgoraRefreshToken;
-                mLocalAccount.mAgoraExpriesIn = mLoginAccount.mAgoraExpriesIn;
-
                 mLoginAccount = null;
+
+                if (mAgoraAccount != null) {    // 赋值Agora账号相关信息
+                    mLocalAccount.mAgoraScope = mAgoraAccount.mScope;
+                    mLocalAccount.mAgoraTokenType = mAgoraAccount.mTokenType;
+                    mLocalAccount.mAgoraAccessToken = mAgoraAccount.mAccessToken;
+                    mLocalAccount.mAgoraRefreshToken = mAgoraAccount.mRefreshToken;
+                    mLocalAccount.mAgoraExpriesIn = mAgoraAccount.mExpriesIn;
+                }
+
                 mStateMachine = ACCOUNT_STATE_RUNNING;  // 状态机切换到 已经登录 状态
             }
             mSdkInstance.setStateMachine(IAgoraCallkitSdk.SDK_STATE_RUNNING);
@@ -448,6 +445,7 @@ public class AccountMgr implements IAccountMgr {
                 mStateMachine = ACCOUNT_STATE_IDLE;    // 状态机切换回 账号未登录 状态
                 mLocalAccount = null;                  // 清空已经登录的本地账号
                 mLoginAccount = null;
+                mAgoraAccount = null;
             }
             mSdkInstance.setStateMachine(IAgoraCallkitSdk.SDK_STATE_READY);
             ALog.getInstance().e(TAG, "<DoAwsLoginDone> finished with AWS failure");
@@ -544,18 +542,6 @@ public class AccountMgr implements IAccountMgr {
 
 
 
-
-    ///////////////////////////////////////////////////////////////////////
-    ///////////////////// Inner Data Structure and Methods ////////////////
-    ///////////////////////////////////////////////////////////////////////
-
-
-    /*
-     * @brief 账号登录信息
-     */
-    private class LoginInfo {
-        String account;
-    }
 
 
 }

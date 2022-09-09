@@ -36,8 +36,6 @@ import io.agora.rtc2.IRtcEngineEventHandler;
 import io.agora.rtc2.RtcConnection;
 import io.agora.rtc2.RtcEngine;
 import io.agora.rtc2.RtcEngineEx;
-import io.agora.rtc2.video.EncodedVideoFrameInfo;
-import io.agora.rtc2.video.IVideoEncodedImageReceiver;
 import io.agora.rtc2.video.IVideoFrameObserver;
 import io.agora.rtc2.video.VideoCanvas;
 import io.agora.rtc2.video.VideoEncoderConfiguration;
@@ -162,6 +160,9 @@ public class TalkingEngine implements AGEventHandler, IVideoFrameObserver {
         mRtcEngine.setChannelProfile(Constants.CHANNEL_PROFILE_LIVE_BROADCASTING);
         mRtcEngine.enableVideo();  // 启动音视频采集和推流处理
         mRtcEngine.enableAudio();
+        mRtcEngine.muteLocalVideoStream(!mInitParam.mPublishVideo);
+        mRtcEngine.muteLocalAudioStream(!mInitParam.mPublishAudio);
+
         String log_file_path = Environment.getExternalStorageDirectory()
                 + File.separator + mInitParam.mContext.getPackageName() + "/log/agora-rtc.log";
         mRtcEngine.setLogFile(log_file_path);
@@ -179,7 +180,7 @@ public class TalkingEngine implements AGEventHandler, IVideoFrameObserver {
         mRtcEngine.setClientRole(mRtcEngCfg.mClientRole);
 
         // 设置私参：音频默认G722 编码
-        String param = "{\"rtc.audio.custom_payload_type\":9}";
+        String param = "{\"che.audio.custom_payload_type\":9}";
         int ret = mRtcEngine.setParameters(param);
 
         mRtcEngine.registerVideoFrameObserver(this);

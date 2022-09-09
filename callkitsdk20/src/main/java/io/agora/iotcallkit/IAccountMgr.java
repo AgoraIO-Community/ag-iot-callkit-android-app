@@ -24,7 +24,53 @@ public interface IAccountMgr  {
     public static final int ACCOUNT_STATE_RUNNING = 0x0003;        ///< 当前已经有一个账号登录
 
 
+    /**
+     * @brief 账号登录信息
+     */
+    public static class LoginParam {
+        public String mAccount;                 ///< 账号名称
+        public String mEndpoint;                ///< iot 平台节点
+        public String mRegion;                  ///< 节点
+        public String mPlatformToken;           ///< 平台凭证
+        public int mExpiration;                 ///< mPlatformToken 过期时间
+        public String mRefresh;                 ///< 平台刷新凭证密钥
 
+        public String mPoolIdentifier;          ///< 用户身份
+        public String mPoolIdentityId;          ///< 用户身份Id
+        public String mPoolToken;               ///< 用户身份凭证
+        public String mIdentityPoolId;          ///< 用户身份池标识
+
+        public String mProofAccessKeyId;        ///< IOT 临时账号凭证
+        public String mProofSecretKey;          ///< IOT 临时密钥
+        public String mProofSessionToken;       ///< IOT 临时Token
+        public long mProofSessionExpiration;    ///< 过期时间(时间戳)
+
+        public String mInventDeviceName;        ///< 虚拟设备thing name
+
+        public String mLsAccessToken;             ///< 认证令牌
+        public String mLsTokenType;               ///< 认证令牌类型
+        public String mLsRefreshToken;            ///< 刷新认证令牌
+        public long mLsExpiresIn;                 ///< 认证令牌过期时间
+        public String mLsScope;                   ///< 令牌作用域
+
+
+        @Override
+        public String toString() {
+            String infoText = "{ mAccount=" + mAccount + ", mPoolIdentifier=" + mPoolIdentifier
+                    + ", mPoolIdentityId=" + mPoolIdentityId + ", mPoolToken=" + mPoolToken
+                    + ", mIdentityPoolId=" + mIdentityPoolId
+                    + ", mProofAccessKeyId=" + mProofAccessKeyId
+                    + ", mProofSecretKey=" + mProofSecretKey
+                    + ", mProofSessionToken=" + mProofSessionToken
+                    + ", mInventDeviceName=" + mInventDeviceName
+                    + ", mLsAccessToken=" + mLsAccessToken
+                    + ", mLsTokenType=" + mLsTokenType
+                    + ", mLsRefreshToken=" + mLsRefreshToken
+                    + ", mLsExpiresIn=" + mLsExpiresIn
+                    + ", mLsScope=" + mLsScope + " }";
+            return infoText;
+        }
+    }
 
     /*
      * @brief 账号管理回调接口
@@ -83,10 +129,10 @@ public interface IAccountMgr  {
 
     /**
      * @brief 登录一个用户账号，触发 onLoginDone() 回调
-     * @param account : 要登录的用户账号
+     * @param loginParam : 要登录的用户账号信息
      * @return 错误代码
      */
-    int login(final String account);
+    int login(final LoginParam loginParam);
 
     /**
      * @brief 登出当前账号，触发 onLogoutDone() 回调
@@ -95,17 +141,16 @@ public interface IAccountMgr  {
 
 
     /**
-     * @brief 获取当前已经登录的账号名称，如果未登录则返回null
+     * @brief 获取当前已经登录的账号，如果未登录则返回null
      *
      */
-    String getAccount();
+    String getLoggedAccount();
 
     /**
      * @brief 获取当前已经登录的账号Id，这是由SDK内部生成的唯一Id，如果未登录则返回null
      *
      */
     String getAccountId();
-
 
 
 }
